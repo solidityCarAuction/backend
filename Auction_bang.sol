@@ -81,13 +81,11 @@ contract MyAuction is Auction {
         Mycar.Brand = _brand;
         Mycar.Rnumber = _Rnumber;
     }
-    // [NEW] 최고입찰금액보다 작을경우 트랜젝션을 롤백해 클라이언트에서 낮은가격으로 입찰했을때 오류발생 방지
+    // // [NEW]최고 입찰금액을 msg.value → bids[msg.sender] + msg.value로 수정해서 낮은금액으로 입찰하던것을 막음
     // 부모 컨트랙트의 bid 함수 재정의 (override)
     function bid() public payable override an_ongoing_auction returns (bool) {
         require (bids[msg.sender] + msg.value > highestBid, "Bid is too low");  
         highestBidder = msg.sender;
-
-        // [NEW]최고 입찰금액을 msg.value → bids[msg.sender] + msg.value로 수정해서 낮은금액으로 입찰하던것을 막음
         highestBid = bids[msg.sender] + msg.value;
         bidders.push(msg.sender);
         bids[msg.sender] = bids[msg.sender] + msg.value;
