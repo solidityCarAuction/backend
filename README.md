@@ -8,6 +8,7 @@
 이 문서는  Auction_bang.sol 에 적용된 개선 사항들을 설명합니다. 이러한 변경의 목적은 경매 프로세스의 견고성, 보안성 및 사용자 경험을 향상시키는 것입니다. 주요 수정 사항은 입찰 검증 강화, 경매 소유자 및 입찰자의 인출 제어, 그리고 경매 상태 관리 개선에 중점을 둡니다.
 
 ## 계약 구조
+![KakaoTalk_20250424_152036562](https://github.com/user-attachments/assets/e606d43c-a898-4d78-9ae8-6a7a42b231d8)
 
 * **`Auction`**: 일반적인 경매를 위한 핵심 구조, 상태 변수, 변경자(modifier), 이벤트 및 가상 함수(virtual functions)를 정의하는 추상 기반 계약입니다.
 * **`MyAuction`**: `Auction` 계약을 상속받는 구체적인 구현 계약입니다. 생성자 초기화 및 `bid`, `withdraw`, `cancel_auction`과 같은 가상 함수의 재정의(override)를 포함한 특정 경매 로직을 제공합니다.
