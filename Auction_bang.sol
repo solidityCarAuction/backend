@@ -1,4 +1,3 @@
-// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract Auction {
@@ -67,7 +66,7 @@ contract Auction {
     event WithdrawalEvent(address withdrawer, uint256 amount);
     event CanceledEvent(uint message, uint256 time);
     event StateUpdated(auction_state newState); // 상태 업데이트 이벤트 추가
-    
+    event OwnerWithdrawalEvent(address owner, uint amount, uint time);
 }
 
 contract MyAuction is Auction {
@@ -111,13 +110,14 @@ contract MyAuction is Auction {
     // [NEW] 경매 소유자는 경매가 끝난 이후에 스마트 컨트랙트 안의 금액중 최고 입찰자의 금액을 1회만 출금가능
     // 경매 소유자가 남은 자금을 회수하는 함수
     function withdrawRemainingFunds() external override only_owner end_auction withdraw_owner{
-        uint amount = bids[highestBidder];
         isWithdraw = false;// [NEW]더는 출금 못하게 막음
-        uint balance = address(this).balance;
-        require(balance > 0, "No funds left in the contract");
-
-        (bool success, ) = payable(auction_owner).call{value: amount}("");
+        require(highestBid > 0, "No funds left in the contract");
+        (bool success, ) = payable(auction_owner).call{value: highestBid}("");
         require(success, "Transfer failed");
+ 
+        // [NEW] 경매자 자금 회수 이벤트 발생
+        emit OwnerWithdrawalEvent(auction_owner, highestBid, block.timestamp);
+
     }
 
 
