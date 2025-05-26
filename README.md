@@ -9,7 +9,13 @@
 
 ## 계약 구조
 
-![솔리디티클래스다이어그램 drawio](https://github.com/user-attachments/assets/5a38d9a3-0e08-4578-887b-02504c8afd26)
+<img src="https://github.com/user-attachments/assets/ee7747f4-20e8-46f0-864e-337ec2368115" width="500"/>
+
+## 시퀀스 다이어그램
+
+<img src="https://github.com/user-attachments/assets/7c6ee4c2-fbf1-4913-9cf5-ee2939808a99" width="500"/>
+
+
 
 * **`Auction`**: 일반적인 경매를 위한 핵심 구조, 상태 변수, 변경자(modifier), 이벤트 및 가상 함수(virtual functions)를 정의하는 추상 기반 계약입니다.
 * **`MyAuction`**: `Auction` 계약을 상속받는 구체적인 구현 계약입니다. 생성자 초기화 및 `bid`, `withdraw`, `cancel_auction`과 같은 가상 함수의 재정의(override)를 포함한 특정 경매 로직을 제공합니다.
