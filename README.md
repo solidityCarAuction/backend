@@ -7,9 +7,15 @@
 본 스마트 컨트랙트는 폴리텍 대학 서울 강서 캠퍼스 스마트 금융과 황원용 교수님께서 제공하신 13_auction.sol 파일을 기반으로, 기능 개선 및 잠재적 문제 해결을 위해 다음과 같은 수정 사항을 Auction_bang.sol 에 적용했습니다.
 이 문서는  Auction_bang.sol 에 적용된 개선 사항들을 설명합니다. 이러한 변경의 목적은 경매 프로세스의 견고성, 보안성 및 사용자 경험을 향상시키는 것입니다. 주요 수정 사항은 입찰 검증 강화, 경매 소유자 및 입찰자의 인출 제어, 그리고 경매 상태 관리 개선에 중점을 둡니다.
 
-## 계약 구조
+## 전체 구성도
 
-![솔리디티클래스다이어그램 drawio](https://github.com/user-attachments/assets/5a38d9a3-0e08-4578-887b-02504c8afd26)
+<img src="https://github.com/user-attachments/assets/ee7747f4-20e8-46f0-864e-337ec2368115" width="500"/>
+
+## 시퀀스 다이어그램
+
+<img src="https://github.com/user-attachments/assets/7c6ee4c2-fbf1-4913-9cf5-ee2939808a99" width="500"/>
+
+
 
 * **`Auction`**: 일반적인 경매를 위한 핵심 구조, 상태 변수, 변경자(modifier), 이벤트 및 가상 함수(virtual functions)를 정의하는 추상 기반 계약입니다.
 * **`MyAuction`**: `Auction` 계약을 상속받는 구체적인 구현 계약입니다. 생성자 초기화 및 `bid`, `withdraw`, `cancel_auction`과 같은 가상 함수의 재정의(override)를 포함한 특정 경매 로직을 제공합니다.
@@ -77,3 +83,8 @@
     * **문제점:** 최고 입찰자가 자금을 출금 가능
     * **설명:** 입찰자들이 자신의 입찰금을 회수하기 위해 사용하는 `withdraw` 함수에 `isHighestBidder` 변경자가 추가되었습니다.
     * **목적:** 최고 입찰자가 이 함수를 사용하여 자신의 입찰금을 인출하는 것을 방지합니다. 최고 입찰자가 아닌 다른 입찰자들 (또는 경매가 취소된 경우 모든 입찰자들)은 여전히 이 함수를 사용하여 예치했던 이더(Ether)를 돌려받을 수 있습니다. 
+
+## 🎥 시연 영상
+
+https://github.com/user-attachments/assets/c82e6b91-132a-476e-817c-3ca241b1beb2
+
